@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './home-page/home/home.component';
 import { NavigationMenuComponent } from './shared/navigation-menu/navigation-menu.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { ContactComponent } from './contact/contact.component';
-import { ProductsComponent } from './products/products.component';
+import { ContactComponent } from './home-page/contact/contact.component';
+import { AppsComponent } from './apps-page/apps/apps.component';
 import { GraphicComponent } from './shared/graphic/graphic.component';
-import { AboutComponent } from './about/about.component';
+import { AboutComponent } from './home-page/about/about.component';
+import { AppSectionComponent } from './apps-page/app-section/app-section.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,10 @@ import { AboutComponent } from './about/about.component';
     NavigationMenuComponent,
     FooterComponent,
     ContactComponent,
-    ProductsComponent,
+    AppsComponent,
     GraphicComponent,
-    AboutComponent
+    AboutComponent,
+    AppSectionComponent
   ],
   imports: [
     BrowserModule,
