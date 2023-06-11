@@ -1,0 +1,28 @@
+footer {
+  background-color: #222;
+  color: #fff;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.footer-info p {
+  margin: 0;
+}
+
+.footer-info a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-info a:hover {
+  color: #ccc;
+}
