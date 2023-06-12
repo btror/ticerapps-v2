@@ -20,14 +20,9 @@
     </div>
 </header>
 
-<div class="container mt-5">
-    <div class="section-info m-3 mt-4">
-        <h4>About</h4>
-        <p>
-            In addition to my professional work, I have also developed several applications independently. One notable
-            project is ticerapps.com, where I single-handedly designed, developed, and deployed a range of innovative
-            and user-friendly applications. This experience allowed me to further enhance my skills in various web
-            development technologies and gain valuable insights into the full project lifecycle.
-        </p>
-    </div>
+<div *ngFor="let section of appSections">
+    <app-app-section [title]="section.title" [description]="section.description" [platform]="section.platform"
+        [link]="section.link" [iconPath]="section.iconPath" [price]="section.price"></app-app-section>
 </div>
+
+<app-footer></app-footer>
