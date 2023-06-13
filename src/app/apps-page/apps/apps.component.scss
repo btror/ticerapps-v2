@@ -84,7 +84,7 @@
   grid-gap: 20px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .app-section-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

@@ -20,7 +20,7 @@
     </div>
 </header>
 
-<div class="app-section-grid">
+<div class="app-section-grid container">
     <div *ngFor="let section of appSections" class="app-section">
         <app-app-section [title]="section.title" [description]="section.description" [platform]="section.platform"
             [link]="section.link" [iconPath]="section.iconPath" [price]="section.price"></app-app-section>
