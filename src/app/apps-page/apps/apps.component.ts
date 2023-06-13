@@ -89,4 +89,121 @@ export class AppsComponent {
       price: 'FREE',
     },
   ];
+
+  sortOptions = [
+    { label: 'Title', value: 'sortByTitle' },
+    { label: 'Platform', value: 'sortByPlatform' },
+    { label: 'Price (Low to High)', value: 'sortByPriceLowToHigh' },
+    { label: 'Price (High to Low)', value: 'sortByPriceHighToLow' },
+  ];
+  selectedSortOption!: string;
+  dropdownOpen: boolean = false;
+
+  constructor() {
+    this.selectedSortOption = 'sortByTitle';
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  selectSortOption(option: any) {
+    this.selectedSortOption = option.value;
+    this.dropdownOpen = false;
+    this.sortApps();
+  }
+
+  sortApps() {
+    switch (this.selectedSortOption) {
+      case 'sortByTitle':
+        this.sortByTitle();
+        break;
+      case 'sortByPriceLowToHigh':
+        this.sortByPriceLowToHigh();
+        break;
+      case 'sortByPriceHighToLow':
+        this.sortByPriceHighToLow();
+        break;
+      case 'sortByPlatform':
+        this.sortByPlatform();
+        break;
+      default:
+        break;
+    }
+  }
+
+  sortByTitle() {
+    this.appSections.sort((a, b) => {
+      const titleA = a.title.toLowerCase();
+      const titleB = b.title.toLowerCase();
+
+      if (titleA < titleB) {
+        return -1;
+      } else if (titleA > titleB) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  sortByPlatform() {
+    this.appSections.sort((a, b) => {
+      if (a.platform === b.platform) {
+        return a.title.localeCompare(b.title);
+      } else {
+        return a.platform.localeCompare(b.platform);
+      }
+    });
+  }
+
+  sortByPriceLowToHigh() {
+    this.appSections.sort((a, b) => {
+      if (a.price === 'FREE' && b.price !== 'FREE') {
+        return -1;
+      } else if (a.price !== 'FREE' && b.price === 'FREE') {
+        return 1;
+      } else {
+        const priceA =
+          a.price === 'FREE' ? 0 : parseFloat(a.price.replace('$', ''));
+        const priceB =
+          b.price === 'FREE' ? 0 : parseFloat(b.price.replace('$', ''));
+
+        if (priceA === priceB) {
+          if (a.price === 'FREE') {
+            return a.title.localeCompare(b.title);
+          } else {
+            return a.title.localeCompare(b.title);
+          }
+        } else {
+          return priceA - priceB;
+        }
+      }
+    });
+  }
+
+  sortByPriceHighToLow() {
+    this.appSections.sort((a, b) => {
+      if (a.price === 'FREE' && b.price !== 'FREE') {
+        return 1;
+      } else if (a.price !== 'FREE' && b.price === 'FREE') {
+        return -1;
+      } else {
+        const priceA =
+          a.price === 'FREE' ? 0 : parseFloat(a.price.replace('$', ''));
+        const priceB =
+          b.price === 'FREE' ? 0 : parseFloat(b.price.replace('$', ''));
+
+        if (priceA === priceB) {
+          if (a.price === 'FREE') {
+            return a.title.localeCompare(b.title);
+          } else {
+            return a.title.localeCompare(b.title);
+          }
+        } else {
+          return priceB - priceA;
+        }
+      }
+    });
+  }
 }

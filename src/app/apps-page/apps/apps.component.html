@@ -20,6 +20,19 @@
     </div>
 </header>
 
+<div class="container apps-menu">
+    <div class="dropdown">
+        <button class="dropdown-toggle" (click)="toggleDropdown()">
+            <i class="fas fa-sort-amount-down"></i> Sort By
+        </button>
+        <ul class="dropdown-menu" [ngClass]="{ 'open': dropdownOpen }">
+            <li *ngFor="let option of sortOptions" (click)="selectSortOption(option)">
+                <a>{{ option.label }}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
 <div class="app-section-grid container">
     <div *ngFor="let section of appSections" class="app-section">
         <app-app-section [title]="section.title" [description]="section.description" [platform]="section.platform"
