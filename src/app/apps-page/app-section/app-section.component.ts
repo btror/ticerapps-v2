@@ -12,4 +12,11 @@ export class AppSectionComponent {
   @Input() link!: string;
   @Input() iconPath!: string;
   @Input() price!: string;
+  showFullDescription = false;
+
+  openLink(): void {
+    if (this.link) {
+      window.open(this.link, '_blank');
+    }
+  }
 }

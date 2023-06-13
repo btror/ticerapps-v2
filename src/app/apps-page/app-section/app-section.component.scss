@@ -4,8 +4,74 @@ h4 {
   margin-bottom: 10px;
 }
 
+.price-green {
+  color: #008000;
+  font-weight: 600;
+}
+
+.price-gold {
+  color: #ffd700;
+  animation: shine 5s infinite;
+  font-weight: 750;
+}
+
+@keyframes shine {
+  0% {
+    color: #ffd700;
+  }
+  50% {
+    color: #ffa500;
+  }
+  100% {
+    color: gold;
+  }
+}
+
 p {
   font-size: 16px;
   margin-bottom: 10px;
   text-align: justify;
+}
+
+.section-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.section-info-platform {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.read-more {
+  color: #575294;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.icon-path {
+  width: 125px;
+  height: 125px;
+}
+
+.link-button {
+  width: 125px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #bebebe;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  background-color: #858585;
 }

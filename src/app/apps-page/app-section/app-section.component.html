@@ -1,10 +1,22 @@
 <div class="container mt-5">
     <div class="section-info m-3 mt-4">
         <h4>{{ title }}</h4>
-        <p>{{ description }}</p>
-        <p>{{ platform }}</p>
-        <p>{{ link }}</p>
-        <p>{{ iconPath }}</p>
-        <p>{{ price }}</p>
+        <img [src]="iconPath" class="icon-path mt-2" alt="Icon" *ngIf="iconPath" />
+        <div class="section-info-platform mt-2">
+            <span [ngClass]="{'price-green': price !== 'FREE', 'price-gold': price === 'FREE'}">{{ price }}</span>
+        </div>
+        <div>
+            <button class="link-button mb-3" (click)="openLink()">{{ platform }}</button>
+        </div>
+        <p>
+            {{ showFullDescription ? description : (description | slice:0:180) }}
+            <span *ngIf="description.length > 100">
+                <span *ngIf="!showFullDescription">... <span class="read-more" (click)="showFullDescription = true">read
+                        more</span></span>
+                <span *ngIf="showFullDescription"> <span class="read-more"
+                        (click)="showFullDescription = false"><br>read
+                        less</span></span>
+            </span>
+        </p>
     </div>
 </div>
