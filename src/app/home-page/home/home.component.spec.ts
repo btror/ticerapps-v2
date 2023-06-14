@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home.component';
 import { GraphicComponent } from 'src/app/shared/graphic/graphic.component';
 import { NavigationMenuComponent } from 'src/app/shared/navigation-menu/navigation-menu.component';
@@ -30,7 +29,7 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create home component', () => {
     expect(component).toBeTruthy();
   });
 });

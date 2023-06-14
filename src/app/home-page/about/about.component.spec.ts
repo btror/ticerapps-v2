@@ -1,5 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { AboutComponent } from './about.component';
 
 describe('AboutComponent', () => {
@@ -8,16 +12,24 @@ describe('AboutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AboutComponent ]
-    })
-    .compileComponents();
+      declarations: [AboutComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AboutComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create about component', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
+
+  it('should call lazyLoadImage on initialization', fakeAsync(() => {
+    spyOn(component, 'lazyLoadImage');
+
+    fixture.detectChanges();
+    tick();
+
+    expect(component.lazyLoadImage).toHaveBeenCalled();
+  }));
 });

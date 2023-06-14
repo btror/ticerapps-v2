@@ -10,7 +10,7 @@
         </div>
         <p>
             {{ showFullDescription ? description : (description | slice:0:180) }}
-            <span *ngIf="description.length > 100">
+            <span *ngIf="description && description.length > 100">
                 <span *ngIf="!showFullDescription">... <span class="read-more" (click)="showFullDescription = true">read
                         more</span></span>
                 <span *ngIf="showFullDescription"> <span class="read-more"

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ContactComponent } from './contact.component';
 import { FormsModule } from '@angular/forms';
 
@@ -18,7 +17,7 @@ describe('ContactComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create apps component', () => {
     expect(component).toBeTruthy();
   });
 });

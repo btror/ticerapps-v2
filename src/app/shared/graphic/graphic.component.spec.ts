@@ -17,7 +17,7 @@ describe('GraphicComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create grahpic component', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AppsComponent } from './apps.component';
 import { GraphicComponent } from 'src/app/shared/graphic/graphic.component';
 import { NavigationMenuComponent } from 'src/app/shared/navigation-menu/navigation-menu.component';
+import { AppSectionComponent } from '../app-section/app-section.component';
+import { FooterComponent } from 'src/app/shared/footer/footer.component';
 
 describe('AppsComponent', () => {
   let component: AppsComponent;
@@ -10,7 +11,13 @@ describe('AppsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppsComponent, GraphicComponent, NavigationMenuComponent],
+      declarations: [
+        AppsComponent,
+        GraphicComponent,
+        NavigationMenuComponent,
+        AppSectionComponent,
+        FooterComponent,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppsComponent);
@@ -18,7 +25,7 @@ describe('AppsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create apps component', () => {
     expect(component).toBeTruthy();
   });
 });
