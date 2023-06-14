@@ -19,7 +19,7 @@ export class NavigationMenuComponent {
     }
   }
 
-  private scroll(sectionId: string) {
+  scroll(sectionId: string) {
     const sectionElement = document.getElementById(sectionId);
     if (sectionElement) {
       sectionElement.scrollIntoView({ behavior: 'auto' });
