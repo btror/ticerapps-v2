@@ -18,4 +18,14 @@ describe('AppSectionComponent', () => {
   it('should create app-section component', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should open link in new tab', () => {
+    const openSpy = spyOn(window, 'open');
+    const link = 'https://example.com';
+
+    component.link = link;
+    component.openLink();
+
+    expect(openSpy).toHaveBeenCalledWith(link, '_blank');
+  });
 });
