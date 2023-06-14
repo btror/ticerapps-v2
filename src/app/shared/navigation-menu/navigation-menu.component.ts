@@ -1,4 +1,5 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-menu',
@@ -6,14 +7,22 @@ import { Component, ElementRef } from '@angular/core';
   styleUrls: ['./navigation-menu.component.scss'],
 })
 export class NavigationMenuComponent {
-  constructor(private elementRef: ElementRef) {}
+  constructor(private router: Router) {}
 
   scrollToSection(sectionId: string) {
+    if (this.router.url !== '/') {
+      this.router.navigateByUrl('/').then(() => {
+        this.scroll(sectionId);
+      });
+    } else {
+      this.scroll(sectionId);
+    }
+  }
+
+  private scroll(sectionId: string) {
     const sectionElement = document.getElementById(sectionId);
     if (sectionElement) {
-      const yOffset =
-        sectionElement.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: yOffset, behavior: 'smooth' });
+      sectionElement.scrollIntoView({ behavior: 'auto' });
     }
   }
 }

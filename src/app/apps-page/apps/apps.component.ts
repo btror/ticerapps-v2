@@ -96,11 +96,14 @@ export class AppsComponent {
     { label: 'Price (Low to High)', value: 'sortByPriceLowToHigh' },
     { label: 'Price (High to Low)', value: 'sortByPriceHighToLow' },
   ];
+
   selectedSortOption!: string;
+
   dropdownOpen: boolean = false;
 
   constructor() {
     this.selectedSortOption = 'sortByTitle';
+    this.sortByTitle();
   }
 
   toggleDropdown() {
