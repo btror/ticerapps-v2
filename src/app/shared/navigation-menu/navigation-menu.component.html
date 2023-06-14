@@ -4,10 +4,10 @@
             <a class="nav-link" routerLink="/" (click)="scrollToSection('home')">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" (click)="scrollToSection('about')">About</a>
+            <a class="nav-link" tabindex="0" (click)="scrollToSection('about')" (keydown.enter)="scrollToSection('about')">About</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" (click)="scrollToSection('contact')">Contact</a>
+            <a class="nav-link" tabindex="0" (click)="scrollToSection('contact')" (keydown.enter)="scrollToSection('contact')">Contact</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" routerLink="/apps">Apps</a>

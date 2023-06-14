@@ -27,7 +27,7 @@
         </button>
         <ul class="dropdown-menu" [ngClass]="{ 'open': dropdownOpen }">
             <li *ngFor="let option of sortOptions" (click)="selectSortOption(option)">
-                <a>{{ option.label }}</a>
+                <a tabindex="0" (keydown.enter)="selectSortOption(option)">{{ option.label }}</a>
             </li>
         </ul>
     </div>
