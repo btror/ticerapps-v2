@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -6,30 +6,51 @@ import { NgForm } from '@angular/forms';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
 })
-export class ContactComponent {
-  name!: string;
-  email!: string;
-  message!: string;
+export class ContactComponent implements AfterViewInit {
+  @ViewChild('contactForm', { static: false }) contactForm!: NgForm;
 
-  onSubmit(form: NgForm, event: Event): void {
-    event.preventDefault();
+  ngAfterViewInit(): void {
+    this.hideSubmitError();
+  }
 
-    const name = form.value.name;
-    const email = form.value.email;
-    const message = form.value.message;
+  onSubmit(data: { email: any; message: any; name: any }) {
+    if (this.contactForm.invalid) {
+      this.showSubmitError();
+      return;
+    }
+
+    const name = data.name;
+    const email = data.email;
+    const message = data.message;
 
     let emailBody = `Name: ${name}\n`;
     emailBody += `Email: ${email}\n`;
     emailBody += `Message: ${message}`;
 
+    this.hideSubmitError();
+
     this.sendEmail('btrorapps@gmail.com', 'Contact Form Submission', emailBody);
 
-    form.resetForm();
+    this.contactForm.resetForm();
   }
 
   sendEmail(to: string, subject: string, body: string): void {
     window.location.href = `mailto:${to}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
+  }
+
+  showSubmitError(): void {
+    const submitError = document.querySelector('.submit-error') as HTMLElement;
+    if (submitError) {
+      submitError.style.display = 'block';
+    }
+  }
+
+  hideSubmitError(): void {
+    const submitError = document.querySelector('.submit-error') as HTMLElement;
+    if (submitError) {
+      submitError.style.display = 'none';
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContactComponent } from './contact.component';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -22,22 +23,27 @@ describe('ContactComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should submit form', () => {
-    const form = {
-      value: {
-        name: 'test name',
-        email: 'test email',
-        message: 'test message',
-      },
-      resetForm: () => {},
+  it('should successfully submit form', () => {
+    const formValue = {
+      name: 'test name',
+      email: 'test email',
+      message: 'test message',
     };
 
-    const event = {
-      preventDefault: () => {},
-    };
     const sendEmailSpy = spyOn(component, 'sendEmail');
 
-    component.onSubmit(form as any, event as any);
-    expect(sendEmailSpy).toHaveBeenCalled();
+    const formElement = fixture.debugElement.query(
+      By.css('form')
+    ).nativeElement;
+    component.contactForm.setValue(formValue);
+    fixture.detectChanges();
+    formElement.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
+
+    expect(sendEmailSpy).toHaveBeenCalledWith(
+      'btrorapps@gmail.com',
+      'Contact Form Submission',
+      `Name: ${formValue.name}\nEmail: ${formValue.email}\nMessage: ${formValue.message}`
+    );
   });
 });

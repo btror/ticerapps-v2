@@ -22,21 +22,27 @@
 
 <div class="container mt-4 mb-4">
     <div class="section-form m-3">
-        <form #contactForm="ngForm" (submit)="onSubmit(contactForm, $event)">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Your Name" required [(ngModel)]="name">
+        <form #contactForm="ngForm" class="was-validated" (ngSubmit)="onSubmit(contactForm.value)">
+            <div class="mb-3 mt-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Name" name="name" ngModel required>
+              <div class="invalid-feedback">Please fill out this field.</div>
             </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Your Email" required [(ngModel)]="email">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Email Address" name="email" ngModel required>
+              <div class="invalid-feedback">Please fill out this field.</div>
             </div>
-            <div>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" placeholder="Your Message" required
-                    [(ngModel)]="message"></textarea>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea type="textarea" class="form-control" id="message" placeholder="Your Message" ngModel name="message"
+                required></textarea>
+              <div class="invalid-feedback">Please fill out this field.</div>
             </div>
-            <button type="submit">Send Message</button>
-        </form>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p class="submit-error">Submission failed. Fill out all required information properly.</p>
+            </div>
+          </form>
     </div>
 </div>
