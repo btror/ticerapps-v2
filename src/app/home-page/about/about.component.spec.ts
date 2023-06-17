@@ -24,7 +24,7 @@ describe('AboutComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call lazyLoadImage on initialization', fakeAsync(() => {
+  it('should lazy load about section graphic on initialization', fakeAsync(() => {
     spyOn(component, 'lazyLoadImage');
 
     fixture.detectChanges();

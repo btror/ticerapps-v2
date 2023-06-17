@@ -17,7 +17,27 @@ describe('ContactComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create apps component', () => {
+  it('should create contact component', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
+  });
+
+  it('should submit form', () => {
+    const form = {
+      value: {
+        name: 'test name',
+        email: 'test email',
+        message: 'test message',
+      },
+      resetForm: () => {},
+    };
+
+    const event = {
+      preventDefault: () => {},
+    };
+    const sendEmailSpy = spyOn(component, 'sendEmail');
+
+    component.onSubmit(form as any, event as any);
+    expect(sendEmailSpy).toHaveBeenCalled();
   });
 });
