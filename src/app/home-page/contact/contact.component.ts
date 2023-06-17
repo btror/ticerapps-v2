@@ -10,12 +10,12 @@ export class ContactComponent implements AfterViewInit {
   @ViewChild('contactForm', { static: false }) contactForm!: NgForm;
 
   ngAfterViewInit(): void {
-    this.hideSubmitError();
+    this.hideSubmitMessage();
   }
 
   onSubmit(data: { email: any; message: any; name: any }) {
     if (this.contactForm.invalid) {
-      this.showSubmitError();
+      this.showSubmitErrorMessage();
       return;
     }
 
@@ -27,11 +27,13 @@ export class ContactComponent implements AfterViewInit {
     emailBody += `Email: ${email}\n`;
     emailBody += `Message: ${message}`;
 
-    this.hideSubmitError();
-
+    this.hideSubmitMessage();
     this.sendEmail('btrorapps@gmail.com', 'Contact Form Submission', emailBody);
+    this.showSubmitSuccessMessage();
 
-    this.contactForm.resetForm();
+    const formValues = this.contactForm.value;
+    this.contactForm.resetForm({ emitEvent: false });
+    this.contactForm.form.patchValue(formValues);
   }
 
   sendEmail(to: string, subject: string, body: string): void {
@@ -40,17 +42,36 @@ export class ContactComponent implements AfterViewInit {
     )}&body=${encodeURIComponent(body)}`;
   }
 
-  showSubmitError(): void {
-    const submitError = document.querySelector('.submit-error') as HTMLElement;
-    if (submitError) {
-      submitError.style.display = 'block';
+  showSubmitErrorMessage(): void {
+    const submitMessage = document.querySelector(
+      '.submit-status-message'
+    ) as HTMLElement;
+    if (submitMessage) {
+      submitMessage.style.display = 'block';
+      submitMessage.style.color = '#dc3545';
+      submitMessage.innerHTML =
+        'Submission failed. Fill out all required fields properly.';
     }
   }
 
-  hideSubmitError(): void {
-    const submitError = document.querySelector('.submit-error') as HTMLElement;
-    if (submitError) {
-      submitError.style.display = 'none';
+  showSubmitSuccessMessage(): void {
+    const submitMessage = document.querySelector(
+      '.submit-status-message'
+    ) as HTMLElement;
+    if (submitMessage) {
+      submitMessage.style.display = 'block';
+      submitMessage.style.color = '#008f18';
+      submitMessage.innerHTML =
+        'Message copied to mailing app. Send it from there.';
+    }
+  }
+
+  hideSubmitMessage(): void {
+    const submitMessage = document.querySelector(
+      '.submit-status-message'
+    ) as HTMLElement;
+    if (submitMessage) {
+      submitMessage.style.display = 'none';
     }
   }
 }
