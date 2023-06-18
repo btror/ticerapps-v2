@@ -17,14 +17,19 @@ describe('NavigationMenuComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create navigation-menu component', () => {
-    expect(component).toBeTruthy();
+  describe('Initialization', () => {
+    it('has navigation-menu component', () => {
+      expect(component).toBeTruthy();
+    });
   });
 
-  it('should scroll to section on home navigation click', () => {
-    spyOn(component, 'scroll');
-    const link = fixture.nativeElement.querySelector('a[routerLink="/"]');
-    link.click();
-    expect(component.scroll).toHaveBeenCalledWith('home');
+  describe('Navigation Menu Scroll Links', () => {
+    it('should scroll to section on home navigation click', () => {
+      spyOn(component, 'scroll');
+      const link = fixture.nativeElement.querySelector('a[routerLink="/"]');
+      link.click();
+
+      expect(component.scroll).toHaveBeenCalledWith('home');
+    });
   });
 });

@@ -29,7 +29,9 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create home component', () => {
-    expect(component).toBeTruthy();
+  describe('Initialization', () => {
+    it('has home component', () => {
+      expect(component).toBeTruthy();
+    });
   });
 });

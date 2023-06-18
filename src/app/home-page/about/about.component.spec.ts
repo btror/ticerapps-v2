@@ -19,17 +19,22 @@ describe('AboutComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('should create about component', () => {
-    fixture.detectChanges();
-    expect(component).toBeTruthy();
+  describe('Initialization', () => {
+    it('has about component', () => {
+      fixture.detectChanges();
+
+      expect(component).toBeTruthy();
+    });
   });
 
-  it('should lazy load about section graphic on initialization', fakeAsync(() => {
-    spyOn(component, 'lazyLoadImage');
+  describe('Asset Loading Enhancements', () => {
+    it('should lazy load about section graphic on initialization', fakeAsync(() => {
+      spyOn(component, 'lazyLoadImage');
 
-    fixture.detectChanges();
-    tick();
+      fixture.detectChanges();
+      tick();
 
-    expect(component.lazyLoadImage).toHaveBeenCalled();
-  }));
+      expect(component.lazyLoadImage).toHaveBeenCalled();
+    }));
+  });
 });

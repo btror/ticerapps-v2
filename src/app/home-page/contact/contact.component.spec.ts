@@ -18,32 +18,105 @@ describe('ContactComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create contact component', () => {
-    fixture.detectChanges();
-    expect(component).toBeTruthy();
+  describe('Initialization', () => {
+    it('has contact component', () => {
+      fixture.detectChanges();
+
+      expect(component).toBeTruthy();
+    });
   });
 
-  it('should successfully submit form', () => {
-    const formValue = {
-      name: 'test name',
-      email: 'test email',
-      message: 'test message',
-    };
+  describe('Contact Form Submission', () => {
+    it('should successfully copy contact form input to external mailing app', () => {
+      const sendEmailSpy = spyOn(component, 'sendEmail');
+      const formElement = fixture.debugElement.query(
+        By.css('form')
+      ).nativeElement;
 
-    const sendEmailSpy = spyOn(component, 'sendEmail');
+      const formValue = {
+        name: 'Test Name',
+        email: 'testemail@gmail.com',
+        message: 'test message',
+      };
+      component.contactForm.setValue(formValue);
 
-    const formElement = fixture.debugElement.query(
-      By.css('form')
-    ).nativeElement;
-    component.contactForm.setValue(formValue);
-    fixture.detectChanges();
-    formElement.dispatchEvent(new Event('submit'));
-    fixture.detectChanges();
+      fixture.detectChanges();
 
-    expect(sendEmailSpy).toHaveBeenCalledWith(
-      'btrorapps@gmail.com',
-      'Contact Form Submission',
-      `Name: ${formValue.name}\nEmail: ${formValue.email}\nMessage: ${formValue.message}`
-    );
+      formElement.dispatchEvent(new CustomEvent('submit', {
+        detail: formValue,
+      }));
+
+      fixture.detectChanges();
+
+      expect(sendEmailSpy).toHaveBeenCalledWith(
+        'btrorapps@gmail.com',
+        'Contact Form Submission',
+        `Name: ${formValue.name}\nEmail: ${formValue.email}\nMessage: ${formValue.message}`
+      );
+    });
+  });
+
+  describe('Contact Form Validation', () => {
+    it('should show submission error message on invalid submit', () => {
+      const sendEmailSpy = spyOn(component, 'sendEmail');
+      const formElement = fixture.debugElement.query(
+        By.css('form')
+      ).nativeElement;
+
+      const formValue = {
+        name: 'Test Name',
+        email: '',
+        message: '',
+      };
+      component.contactForm.setValue(formValue);
+
+      fixture.detectChanges();
+
+      formElement.dispatchEvent(new CustomEvent('submit', {
+        detail: formValue,
+      }));
+
+      fixture.detectChanges();
+
+      const submitMessage = fixture.debugElement.query(
+        By.css('.submit-status-message')
+      ).nativeElement;
+
+      expect(submitMessage.innerHTML).toContain(
+        'Submission failed. Fill out all required fields properly.'
+      );
+      expect(sendEmailSpy).not.toHaveBeenCalled();
+    });
+
+    it('should show submission success message on valid submit', () => {
+      const sendEmailSpy = spyOn(component, 'sendEmail');
+      const formElement = fixture.debugElement.query(
+        By.css('form')
+      ).nativeElement;
+
+      const formValue = {
+        name: 'Test Name',
+        email: 'testemail@gmail.com',
+        message: 'test message',
+      };
+      component.contactForm.setValue(formValue);
+
+      fixture.detectChanges();
+
+      formElement.dispatchEvent(new CustomEvent('submit', {
+        detail: formValue,
+      }));
+
+      fixture.detectChanges();
+
+      const submitMessage = fixture.debugElement.query(
+        By.css('.submit-status-message')
+      ).nativeElement;
+
+      expect(submitMessage.innerHTML).toContain(
+        'Message copied to mailing app. Send it from there.'
+      );
+      expect(sendEmailSpy).toHaveBeenCalled();
+    });
   });
 });

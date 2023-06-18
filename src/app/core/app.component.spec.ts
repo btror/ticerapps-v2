@@ -10,9 +10,12 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  it('should create app component', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  describe('Initialization', () => {
+    it('has app component', () => {
+      const fixture = TestBed.createComponent(AppComponent);
+      const app = fixture.componentInstance;
+
+      expect(app).toBeTruthy();
+    });
   });
 });

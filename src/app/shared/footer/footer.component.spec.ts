@@ -15,7 +15,9 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create footer component', () => {
-    expect(component).toBeTruthy();
+  describe('Initialization', () => {
+    it('has footer component', () => {
+      expect(component).toBeTruthy();
+    });
   });
 });

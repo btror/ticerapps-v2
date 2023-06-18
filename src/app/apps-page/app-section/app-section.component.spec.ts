@@ -15,17 +15,21 @@ describe('AppSectionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create app-section component', () => {
-    expect(component).toBeTruthy();
+  describe('Initialization', () => {
+    it('has app-section component', () => {
+      expect(component).toBeTruthy();
+    });
   });
 
-  it('should open link in new tab', () => {
-    const openSpy = spyOn(window, 'open');
-    const link = 'https://example.com';
+  describe('App Downloads', () => {
+    it('should open link in new tab', () => {
+      const openSpy = spyOn(window, 'open');
+      const link = 'https://example.com';
 
-    component.link = link;
-    component.openLink();
+      component.link = link;
+      component.openLink();
 
-    expect(openSpy).toHaveBeenCalledWith(link, '_blank');
+      expect(openSpy).toHaveBeenCalledWith(link, '_blank');
+    });
   });
 });

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { GraphicComponent } from './graphic.component';
 
 describe('GraphicComponent', () => {
@@ -8,16 +7,18 @@ describe('GraphicComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GraphicComponent ]
+      declarations: [GraphicComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(GraphicComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create grahpic component', () => {
-    expect(component).toBeTruthy();
+  describe('Initialization', () => {
+    it('has grahpic component', () => {
+      expect(component).toBeTruthy();
+    });
   });
 });
