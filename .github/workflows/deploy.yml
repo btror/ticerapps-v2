@@ -22,7 +22,7 @@ jobs:
         run: |
           npm install
           npm install -g @angular/cli
-          ng build --prod --base-href "/"
+          ng build --configuration=production --base-href "/"
           git config --global user.name ${{ secrets.GIT_USERNAME }}
           git config --global user.email ${{ secrets.GIT_EMAIL }}
           git checkout -b gh-pages
