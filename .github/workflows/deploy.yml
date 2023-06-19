@@ -27,7 +27,7 @@ jobs:
       - name: Deploy
         run: |
           echo deploying app...
-          npx angular-cli-ghpages --dir=dist/ticerapps-v2
+          npx angular-cli-ghpages --dir=dist/ticerapps-v2 --no-silent
 
       - name: Run Tests
         run: npm run test
