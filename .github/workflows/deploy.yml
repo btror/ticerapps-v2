@@ -27,7 +27,7 @@ jobs:
           ng build --configuration=production --base-href "/"
           git config --global user.name ${{ secrets.GIT_USERNAME }}
           git config --global user.email ${{ secrets.GIT_EMAIL }}
-          git checkout -b gh-pages
+          git checkout gh-pages
           cp -r dist/ticerapps-v2/* .
           git add .
           git commit -m "Deploy to GitHub Pages"
