@@ -26,7 +26,9 @@ jobs:
           ng build --configuration=production --base-href "/"
 
       - name: Deploy
-        run: npx angular-cli-ghpages --dir=dist/ticerapps-v2  
+        run: |
+          echo deploying app...
+          npx angular-cli-ghpages --dir=dist/ticerapps-v2
 
       - name: Run Tests
         run: npm run test
