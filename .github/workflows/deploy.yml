@@ -18,12 +18,15 @@ jobs:
         with:
           node-version: 18
 
-      - name: Build and Deploy
+      - name: Build
         run: |
-          echo building and deploying app...
+          echo building app...
           npm install
           npm install -g @angular/cli
           ng build --configuration=production --base-href "/"
+
+      - name: Deploy
+        run: npx angular-cli-ghpages --dir=dist/ticerapps-v2  
 
       - name: Run Tests
         run: npm run test
