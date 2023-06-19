@@ -1,35 +1,26 @@
-name: Deploy to GitHub Pages
+name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Build and deploy
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Build and Deploy
         run: |
+          echo building and deploying app...
           npm install
           npm install -g @angular/cli
           ng build --configuration=production --base-href "/"
-          git config --global user.name ${{ secrets.GIT_USERNAME }}
-          git config --global user.email ${{ secrets.GIT_EMAIL }}
-          git fetch origin gh-pages
-          git switch gh-pages
-          cp -r dist/ticerapps-v2/* .
-          git add .
-          git commit -m "Deploy to GitHub Pages"
-          git push origin gh-pages
