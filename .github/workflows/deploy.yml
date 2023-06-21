@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
           ng build --configuration=production --base-href "/"
 
       - name: Deploy
-        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
@@ -33,5 +33,5 @@ jobs:
           npx angular-cli-ghpages --dir=dist/ticerapps-v2 --no-silent
 
       - name: Tests
-        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true
         run: npm run test
