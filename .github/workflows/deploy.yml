@@ -22,8 +22,12 @@ jobs:
           echo building app...
           npm install
           npm install -g @angular/cli
-          ng build
-          npx angular-cli-ghpages --dir=dist/ticerapps-v2 --no-silent
+          ng build --configuration=production --base-href "/"
+
+      - name: Deploy
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npx angular-cli-ghpages --dir=dist/ticerapps-v2 --no-silent
 
       - name: Run Tests
         run: npm run test
