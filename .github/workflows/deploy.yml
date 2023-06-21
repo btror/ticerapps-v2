@@ -41,8 +41,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo pushing to gh-pages branch...
-          git config --global user.name "${secrets.GIT_USERNAME}"
-          git config --global user.email "${secrets.GIT_EMAIL}"
+          git config --global user.name ${{ secrets.GIT_USERNAME }}
+          git config --global user.email ${{ secrets.GIT_EMAIL }}
           git checkout gh-pages
           git merge main --no-edit
           git push origin gh-pages
