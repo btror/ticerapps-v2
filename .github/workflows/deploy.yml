@@ -30,4 +30,8 @@ jobs:
           npx angular-cli-ghpages --dir=dist/ticerapps-v2 --no-silent
 
       - name: Tests
-        run: npm run test
+        run: |
+          echo running tests...
+          sudo apt install chromium-browser
+          export CHROME_BIN=/usr/bin/chromium-browser
+          npm run test
