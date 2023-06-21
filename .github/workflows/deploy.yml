@@ -29,5 +29,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx angular-cli-ghpages --dir=dist/ticerapps-v2 --no-silent
 
-      - name: Run Tests
+      - name: Unit Tests
         run: npm run test
