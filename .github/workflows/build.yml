@@ -21,3 +21,10 @@ jobs:
           npm install
           npm install -g @angular/cli
           ng build --configuration=production --base-href "/"
+
+      - name: Tests
+        run: |
+          echo running tests...
+          sudo apt install chromium-browser
+          export CHROME_BIN=/usr/bin/chromium-browser
+          npm run test
