@@ -20,7 +20,7 @@ jobs:
           echo building app...
           npm install
           npm install -g @angular/cli
-          ng build --configuration=production --base-href "/"
+          ng build
 
       - name: Tests
         run: |
