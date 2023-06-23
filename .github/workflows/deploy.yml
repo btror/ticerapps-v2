@@ -15,6 +15,11 @@ jobs:
         with:
           node-version: 18
 
+      - name: Config
+        run: |
+          git config --global user.name ${{ secrets.GIT_USERNAME }}
+          git config --global user.email ${{ secrets.GIT_EMAIL }}
+
       - name: Build
         run: |
           echo building app...
