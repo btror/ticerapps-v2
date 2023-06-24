@@ -27,6 +27,11 @@ jobs:
           npm install -g @angular/cli
           ng build
 
+      - name: Copy CNAME file
+        run: |
+          echo copying CNAME file...
+          cp CNAME dist/ticerapps-v2/CNAME
+
       - name: Deploy
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
