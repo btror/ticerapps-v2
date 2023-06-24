@@ -24,21 +24,27 @@
     <div class="section-form m-3">
         <form #contactForm="ngForm" class="was-validated" (ngSubmit)="onSubmit(contactForm.value)">
             <div class="mb-3 mt-3">
-                <label for="name" class="form-label">Full Name</label>
+                <label for="name" class="form-label"><span>*</span> Full Name</label>
                 <input type="text" class="form-control" id="name" placeholder="Name" name="name" ngModel required>
-                <div class="invalid-feedback">Please fill out this field.</div>
+                <div class="invalid-feedback" *ngIf="submitted">
+                    Please fill out this field.
+                </div>
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label"><span>*</span> Email</label>
                 <input type="email" class="form-control" id="email" placeholder="Email Address" name="email" ngModel
                     required>
-                <div class="invalid-feedback">Please fill out this field.</div>
+                <div class="invalid-feedback" *ngIf="submitted">
+                    Please fill out this field.
+                </div>
             </div>
             <div class="mb-3">
-                <label for="message" class="form-label">Message</label>
+                <label for="message" class="form-label"><span>*</span> Message</label>
                 <textarea type="textarea" class="form-control" id="message" placeholder="Your Message" ngModel
                     name="message" required></textarea>
-                <div class="invalid-feedback">Please fill out this field.</div>
+                <div class="invalid-feedback" *ngIf="submitted">
+                    Please fill out this field.
+                </div>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
