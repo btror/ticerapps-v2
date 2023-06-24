@@ -8,12 +8,15 @@ import { NgForm } from '@angular/forms';
 })
 export class ContactComponent implements AfterViewInit {
   @ViewChild('contactForm', { static: false }) contactForm!: NgForm;
+  submitted = false;
 
   ngAfterViewInit(): void {
     this.hideSubmitMessage();
   }
 
   onSubmit(data: { email: any; message: any; name: any }) {
+    this.submitted = true;
+
     if (this.contactForm.invalid) {
       this.showSubmitErrorMessage();
       return;
