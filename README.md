@@ -1,26 +1,31 @@
-# TicerappsV2
+# ticerapps-v2
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+View live at [ticerapps.com](https://ticerapps.com).
 
-## Development server
+## About
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Welcome to version 2 of my developer website. This version represents a complete overhaul from its [predecessor](https://github.com/btror/ticerapps), now powered by [Angular](https://angular.io/). Version 2 delivers an enhanced user experience, streamlined development framework, and automation for tests, builds, and deployment. If you're interested in exploring the previous version, built with [React](https://react.dev/), you can still find it [here](https://github.com/btror/ticerapps).
 
-## Code scaffolding
+## Development Process
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Clone this repository and install required packages via `npm i`.
 
-## Build
+Start a dev server at `http://localhost:4200` via `ng serve -o`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run unit tests via `npm run test`.
 
-## Running unit tests
+## Automation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Create a pull request to merge your branch into `main`. Merging is possible after a successful CI process and 2 approving reviews.
 
-## Running end-to-end tests
+After merging, a new CI and build process is triggered automatically. Once the build finishes successfully, the new changes are deployed to [ticerapps.com](https://ticerapps.com).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Production files are pushed to the `gh-pages` branch automatically.
+
+## Requirements
+
+- [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+- [npm](https://docs.npmjs.com/cli/v9/commands/npm-install) and [NodeJS](https://nodejs.org/en/download) version 18.16.0
 
 ## Further help
 
