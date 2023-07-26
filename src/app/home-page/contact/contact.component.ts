@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-contact',
@@ -9,6 +11,8 @@ import { NgForm } from '@angular/forms';
 export class ContactComponent implements AfterViewInit {
   @ViewChild('contactForm', { static: false }) contactForm!: NgForm;
   submitted = false;
+
+  constructor(private http: HttpClient) {}
 
   ngAfterViewInit(): void {
     this.hideSubmitMessage();
@@ -31,6 +35,30 @@ export class ContactComponent implements AfterViewInit {
     emailBody += `Message: ${message}`;
 
     this.hideSubmitMessage();
+
+    const request = {
+      sender_email: email,
+      message_body:
+        'From: ' +
+        name +
+        '\n' +
+        'Email: ' +
+        email +
+        '\n' +
+        'Message: ' +
+        message,
+    };
+
+    this.http.post<any>(environment.apiUrl, request).subscribe((response) => {
+      if (response.message) {
+        console.log(response.message);
+      } else if (response.error) {
+        this.openEmailApp(emailBody);
+      }
+    });
+  }
+
+  openEmailApp(emailBody: string): void {
     this.sendEmail('btrorapps@gmail.com', 'Contact Form Submission', emailBody);
     this.showSubmitSuccessMessage();
 

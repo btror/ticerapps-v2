@@ -13,6 +13,8 @@ import { GraphicComponent } from '../shared/graphic/graphic.component';
 import { AboutComponent } from '../home-page/about/about.component';
 import { AppSectionComponent } from '../apps-page/app-section/app-section.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,14 +25,10 @@ import { AppSectionComponent } from '../apps-page/app-section/app-section.compon
     AppsComponent,
     GraphicComponent,
     AboutComponent,
-    AppSectionComponent
+    AppSectionComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
