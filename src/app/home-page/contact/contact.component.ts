@@ -51,6 +51,20 @@ export class ContactComponent implements AfterViewInit {
         message,
     };
 
+    // Github pages does not support post requests, open email app instead for the time being.
+
+    // Endpoint notes:
+    // - environment.apiUrl is the url of the backend server, which is retrieved from the environment.ts file.
+    // - That file is not included, so you will have to create it yourself (src/environments/environment.ts).
+
+    // environment.ts:
+    //   export const environment = {
+    //      production: false,
+    //      apiUrl: 'http://127.0.0.1:5000/send_message',
+    //   };
+
+    // This is the endpoint that the backend server is listening on. Clone the backend server repo and run it locally to test.
+
     this.http.post<any>(environment.apiUrl, request).subscribe(
       (response) => {
         if (response.message) {
