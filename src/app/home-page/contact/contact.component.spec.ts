@@ -36,8 +36,8 @@ describe('ContactComponent', () => {
     });
   });
 
-  describe('Contact Form Submission', () => {
-    it('should show submission error message on invalid submit', () => {
+  describe('Send Messages Without ticerapps-backend API Call', () => {
+    it('should copy contact form input to external mailing app', fakeAsync(() => {
       const sendEmailSpy = spyOn(component, 'sendEmail');
       const formElement = fixture.debugElement.query(
         By.css('form')
@@ -45,8 +45,8 @@ describe('ContactComponent', () => {
 
       const formValue = {
         name: 'Test Name',
-        email: '',
-        message: '',
+        email: 'testemail@gmail.com',
+        message: 'test message',
       };
       component.contactForm.setValue(formValue);
 
@@ -59,18 +59,21 @@ describe('ContactComponent', () => {
       );
 
       fixture.detectChanges();
+      tick();
 
-      const submitMessage = fixture.debugElement.query(
-        By.css('.submit-status-message')
-      ).nativeElement;
+      const mockErrorResponse = { error: true };
+      httpMock.expectOne(environment.apiUrl).flush(mockErrorResponse);
 
-      expect(submitMessage.innerHTML).toContain(
-        'Submission failed. Fill out all required fields properly.'
+      fixture.detectChanges();
+
+      expect(sendEmailSpy).toHaveBeenCalledWith(
+        'btrorapps@gmail.com',
+        'Contact Form Submission',
+        `Name: ${formValue.name}\nEmail: ${formValue.email}\nMessage: ${formValue.message}`
       );
-      expect(sendEmailSpy).not.toHaveBeenCalled();
-    });
+    }));
 
-    it('should show submission success message on valid submit', fakeAsync(() => {
+    it('should show submission success message on valid form submission', fakeAsync(() => {
       const sendEmailSpy = spyOn(component, 'sendEmail');
       const formElement = fixture.debugElement.query(
         By.css('form')
@@ -108,5 +111,38 @@ describe('ContactComponent', () => {
       );
       expect(sendEmailSpy).toHaveBeenCalled();
     }));
+
+    it('should show submission error message on invalid form submission', () => {
+      const sendEmailSpy = spyOn(component, 'sendEmail');
+      const formElement = fixture.debugElement.query(
+        By.css('form')
+      ).nativeElement;
+
+      const formValue = {
+        name: 'Test Name',
+        email: '',
+        message: '',
+      };
+      component.contactForm.setValue(formValue);
+
+      fixture.detectChanges();
+
+      formElement.dispatchEvent(
+        new CustomEvent('submit', {
+          detail: formValue,
+        })
+      );
+
+      fixture.detectChanges();
+
+      const submitMessage = fixture.debugElement.query(
+        By.css('.submit-status-message')
+      ).nativeElement;
+
+      expect(submitMessage.innerHTML).toContain(
+        'Submission failed. Fill out all required fields properly.'
+      );
+      expect(sendEmailSpy).not.toHaveBeenCalled();
+    });
   });
 });
