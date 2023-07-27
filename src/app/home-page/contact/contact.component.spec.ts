@@ -30,6 +30,10 @@ describe('ContactComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    httpMock.verify();
+  });
+
   describe('Initialization', () => {
     it('has contact component', () => {
       expect(component).toBeTruthy();
@@ -73,7 +77,7 @@ describe('ContactComponent', () => {
       );
     }));
 
-    it('should show submission success message on valid form submission', fakeAsync(() => {
+    it('should show submission success message when form submission is valid and endpoint returns error', fakeAsync(() => {
       const sendEmailSpy = spyOn(component, 'sendEmail');
       const formElement = fixture.debugElement.query(
         By.css('form')
@@ -107,7 +111,7 @@ describe('ContactComponent', () => {
       ).nativeElement;
 
       expect(submitMessage.innerHTML).toContain(
-        'Message copied to mailing app. Send it from there.'
+        'Submission failed, could not contact server. Message copied to mailing app. Send it from there.'
       );
       expect(sendEmailSpy).toHaveBeenCalled();
     }));
@@ -144,5 +148,45 @@ describe('ContactComponent', () => {
       );
       expect(sendEmailSpy).not.toHaveBeenCalled();
     });
+  });
+
+  describe('Send Messages With ticerapps-backend API Call', () => {
+    it('should show submission success message when form submission is valid and endpoint returns success message', fakeAsync(() => {
+      const sendEmailSpy = spyOn(component, 'sendEmail');
+      const formElement = fixture.debugElement.query(
+        By.css('form')
+      ).nativeElement;
+
+      const formValue = {
+        name: 'Test Name',
+        email: 'testemail@gmail.com',
+        message: 'test message',
+      };
+      component.contactForm.setValue(formValue);
+
+      fixture.detectChanges();
+
+      formElement.dispatchEvent(
+        new CustomEvent('submit', {
+          detail: formValue,
+        })
+      );
+
+      tick();
+
+      const mockSuccessResponse = { message: true };
+      httpMock.expectOne(environment.apiUrl).flush(mockSuccessResponse);
+
+      fixture.detectChanges();
+
+      const submitMessage = fixture.debugElement.query(
+        By.css('.submit-status-message')
+      ).nativeElement;
+
+      expect(submitMessage.innerHTML).toContain(
+        'Message sent. Thank you for contacting me!'
+      );
+      expect(sendEmailSpy).not.toHaveBeenCalled();
+    }));
   });
 });

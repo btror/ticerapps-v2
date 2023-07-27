@@ -67,9 +67,6 @@ export class ContactComponent implements AfterViewInit {
 
   openEmailApp(emailBody: string): void {
     this.sendEmail('btrorapps@gmail.com', 'Contact Form Submission', emailBody);
-    this.showSubmitSuccessMessage(
-      'Message copied to mailing app. Send it from there.'
-    );
 
     const formValues = this.contactForm.value;
     this.contactForm.resetForm({ emitEvent: false });
