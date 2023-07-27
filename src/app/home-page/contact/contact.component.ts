@@ -51,18 +51,27 @@ export class ContactComponent implements AfterViewInit {
         message,
     };
 
-    this.http.post<any>(environment.apiUrl, request).subscribe((response) => {
-      if (response.message) {
-        this.showSubmitSuccessMessage(
-          'Message sent. Thank you for contacting me!'
-        );
-      } else if (response.error) {
+    this.http.post<any>(environment.apiUrl, request).subscribe(
+      (response) => {
+        if (response.message) {
+          this.showSubmitSuccessMessage(
+            'Message sent. Thank you for contacting me!'
+          );
+        } else if (response.error) {
+          this.showSubmitErrorMessage(
+            'Submission failed, could not contact server. Message copied to mailing app. Send it from there.'
+          );
+          this.openEmailApp(emailBody);
+        }
+      },
+      (error) => {
+        console.log(error);
         this.showSubmitErrorMessage(
           'Submission failed, could not contact server. Message copied to mailing app. Send it from there.'
         );
         this.openEmailApp(emailBody);
       }
-    });
+    );
   }
 
   openEmailApp(emailBody: string): void {
