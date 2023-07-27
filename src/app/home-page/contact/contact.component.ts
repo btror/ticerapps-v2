@@ -55,7 +55,7 @@ export class ContactComponent implements AfterViewInit {
 
     // Endpoint notes:
     // - environment.apiUrl is the url of the backend server, which is retrieved from the environment.ts file.
-    // - That file is not included, so you will have to create it yourself (src/environments/environment.ts).
+    // - If that file is not included, you will have to create it yourself (src/environments/environment.ts).
 
     // environment.ts:
     //   export const environment = {
