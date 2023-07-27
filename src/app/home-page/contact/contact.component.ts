@@ -22,7 +22,9 @@ export class ContactComponent implements AfterViewInit {
     this.submitted = true;
 
     if (this.contactForm.invalid) {
-      this.showSubmitErrorMessage();
+      this.showSubmitErrorMessage(
+        'Submission failed. Fill out all required fields properly.'
+      );
       return;
     }
 
@@ -51,8 +53,13 @@ export class ContactComponent implements AfterViewInit {
 
     this.http.post<any>(environment.apiUrl, request).subscribe((response) => {
       if (response.message) {
-        console.log(response.message);
+        this.showSubmitSuccessMessage(
+          'Message sent. Thank you for contacting me!'
+        );
       } else if (response.error) {
+        this.showSubmitErrorMessage(
+          'Submission failed, could not contact server. Message copied to mailing app. Send it from there.'
+        );
         this.openEmailApp(emailBody);
       }
     });
@@ -60,7 +67,9 @@ export class ContactComponent implements AfterViewInit {
 
   openEmailApp(emailBody: string): void {
     this.sendEmail('btrorapps@gmail.com', 'Contact Form Submission', emailBody);
-    this.showSubmitSuccessMessage();
+    this.showSubmitSuccessMessage(
+      'Message copied to mailing app. Send it from there.'
+    );
 
     const formValues = this.contactForm.value;
     this.contactForm.resetForm({ emitEvent: false });
@@ -73,27 +82,25 @@ export class ContactComponent implements AfterViewInit {
     )}&body=${encodeURIComponent(body)}`;
   }
 
-  showSubmitErrorMessage(): void {
+  showSubmitErrorMessage(message: string): void {
     const submitMessage = document.querySelector(
       '.submit-status-message'
     ) as HTMLElement;
     if (submitMessage) {
       submitMessage.style.display = 'block';
       submitMessage.style.color = '#dc3545';
-      submitMessage.innerHTML =
-        'Submission failed. Fill out all required fields properly.';
+      submitMessage.innerHTML = message;
     }
   }
 
-  showSubmitSuccessMessage(): void {
+  showSubmitSuccessMessage(message: string): void {
     const submitMessage = document.querySelector(
       '.submit-status-message'
     ) as HTMLElement;
     if (submitMessage) {
       submitMessage.style.display = 'block';
       submitMessage.style.color = '#008f18';
-      submitMessage.innerHTML =
-        'Message copied to mailing app. Send it from there.';
+      submitMessage.innerHTML = message;
     }
   }
 

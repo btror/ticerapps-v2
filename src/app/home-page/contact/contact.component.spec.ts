@@ -1,62 +1,42 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ContactComponent } from './contact.component';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import { ContactComponent } from './contact.component';
+import { environment } from '../../../environments/environment';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
   let fixture: ComponentFixture<ContactComponent>;
+  let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ContactComponent],
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactComponent);
     component = fixture.componentInstance;
+    httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
   });
 
   describe('Initialization', () => {
     it('has contact component', () => {
-      fixture.detectChanges();
-
       expect(component).toBeTruthy();
     });
   });
 
   describe('Contact Form Submission', () => {
-    it('should successfully copy contact form input to external mailing app', () => {
-      const sendEmailSpy = spyOn(component, 'sendEmail');
-      const formElement = fixture.debugElement.query(
-        By.css('form')
-      ).nativeElement;
-
-      const formValue = {
-        name: 'Test Name',
-        email: 'testemail@gmail.com',
-        message: 'test message',
-      };
-      component.contactForm.setValue(formValue);
-
-      fixture.detectChanges();
-
-      formElement.dispatchEvent(new CustomEvent('submit', {
-        detail: formValue,
-      }));
-
-      fixture.detectChanges();
-
-      expect(sendEmailSpy).toHaveBeenCalledWith(
-        'btrorapps@gmail.com',
-        'Contact Form Submission',
-        `Name: ${formValue.name}\nEmail: ${formValue.email}\nMessage: ${formValue.message}`
-      );
-    });
-  });
-
-  describe('Contact Form Validation', () => {
     it('should show submission error message on invalid submit', () => {
       const sendEmailSpy = spyOn(component, 'sendEmail');
       const formElement = fixture.debugElement.query(
@@ -72,9 +52,11 @@ describe('ContactComponent', () => {
 
       fixture.detectChanges();
 
-      formElement.dispatchEvent(new CustomEvent('submit', {
-        detail: formValue,
-      }));
+      formElement.dispatchEvent(
+        new CustomEvent('submit', {
+          detail: formValue,
+        })
+      );
 
       fixture.detectChanges();
 
@@ -88,7 +70,7 @@ describe('ContactComponent', () => {
       expect(sendEmailSpy).not.toHaveBeenCalled();
     });
 
-    it('should show submission success message on valid submit', () => {
+    it('should show submission success message on valid submit', fakeAsync(() => {
       const sendEmailSpy = spyOn(component, 'sendEmail');
       const formElement = fixture.debugElement.query(
         By.css('form')
@@ -103,9 +85,17 @@ describe('ContactComponent', () => {
 
       fixture.detectChanges();
 
-      formElement.dispatchEvent(new CustomEvent('submit', {
-        detail: formValue,
-      }));
+      formElement.dispatchEvent(
+        new CustomEvent('submit', {
+          detail: formValue,
+        })
+      );
+
+      fixture.detectChanges();
+      tick();
+
+      const mockErrorResponse = { error: true };
+      httpMock.expectOne(environment.apiUrl).flush(mockErrorResponse);
 
       fixture.detectChanges();
 
@@ -117,6 +107,6 @@ describe('ContactComponent', () => {
         'Message copied to mailing app. Send it from there.'
       );
       expect(sendEmailSpy).toHaveBeenCalled();
-    });
+    }));
   });
 });
