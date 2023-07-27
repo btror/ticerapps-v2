@@ -6,6 +6,7 @@ import { AboutComponent } from '../about/about.component';
 import { ContactComponent } from '../contact/contact.component';
 import { FooterComponent } from 'src/app/shared/footer/footer.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -21,7 +22,7 @@ describe('HomeComponent', () => {
         ContactComponent,
         FooterComponent,
       ],
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
