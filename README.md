@@ -26,6 +26,8 @@ Production files are pushed to the `gh-pages` branch automatically.
 
 - [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
 - [npm](https://docs.npmjs.com/cli/v9/commands/npm-install) and [NodeJS](https://nodejs.org/en/download) version 18.16.0
+- (optional) [ticerapps-backend](https://github.com/btror/ticerapps-backend) Flask Application
+    - This allows users to directly send an email on contact form submission and is not required. If it is not running the form submission behavior will change and an email application will open on form submission with the form data auto-populated in the email body.
 
 ## Further help
 
